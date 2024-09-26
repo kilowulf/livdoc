@@ -54,7 +54,7 @@ const Dashboard = ({ subscriptionPlan }: DashboardPageProps) => {
           />
         </div>
 
-        <UploadButton isSubscribed={subscriptionPlan.isSubscribed} />
+        <UploadButton />
       </div>
 
       {/* display all user files */}
@@ -118,7 +118,7 @@ const Dashboard = ({ subscriptionPlan }: DashboardPageProps) => {
         <Skeleton height={100} className="my-2" count={3} />
       ) : (
         <div className="mt-16 flex flex-col items-center gap-2">
-          <Ghost className="h-8 w-8 text-zinc-800" />
+          <Ghost className="h-8 w-8 text-zinc-500" />
           <h3 className="font-semibold text-xl">
             No documents currently uploaded
           </h3>
