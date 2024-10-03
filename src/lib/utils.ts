@@ -1,6 +1,14 @@
-import { clsx, type ClassValue } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+
+// Utility function `cn` to handle combining and merging class names.
+// This function accepts a variable number of class name inputs, allowing for
+// dynamic or conditional class names to be passed in as an array, string, or object.
 
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  // The function first uses `clsx` to combine and conditionally apply class names,
+  // and then passes the result to `twMerge` to handle Tailwind-specific class merging.
+  // `twMerge` ensures that Tailwind classes are merged correctly, especially when there are
+  // conflicting classes (e.g., different `padding` or `margin` values).
+  return twMerge(clsx(inputs));
 }

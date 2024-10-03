@@ -5,6 +5,7 @@ import logo from "@/assets/logo_png.png";
 import { buttonVariants } from "./ui/button";
 import { LoginLink, RegisterLink } from "@kinde-oss/kinde-auth-nextjs/server";
 import { ArrowRight } from "lucide-react";
+import React from "react";
 
 export default function Navbar() {
   return (
@@ -36,7 +37,7 @@ export default function Navbar() {
               <RegisterLink
                 className={buttonVariants({ variant: "default", size: "sm" })}
               >
-                Get Started
+                Sign Up Now
                 <ArrowRight className="ml-1.5 h-5" />
               </RegisterLink>
             </>
