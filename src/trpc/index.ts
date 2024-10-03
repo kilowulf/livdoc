@@ -4,6 +4,9 @@ import { TRPCError } from "@trpc/server"; // Error handling mechanism for TRPC
 import { db } from "@/db"; // Database instance
 import { z } from "zod"; // Schema validation library for input data
 import { INFINITE_QUERY_LIMIT } from "@/config/infinite-query"; // Configuration value for default query limit
+import { absoluteUrl } from "@/lib/utils";
+import { getUserSubscriptionPlan, stripe } from "@/lib/stripe";
+import { PLANS } from "@/config/stripe";
 
 // Define the TRPC app router that handles different procedures related to authentication, file management, and messages.
 export const appRouter = router({
@@ -74,6 +77,53 @@ export const appRouter = router({
 
       return file; // Return the deleted file object
     }),
+
+  createStripeSession: privateProcedure.mutation(async ({ ctx }) => {
+    const { userId } = ctx;
+
+    const billingUrl = absoluteUrl(`/dashboard/billing`);
+
+    if (!userId) {
+      throw new TRPCError({ code: "UNAUTHORIZED" });
+    }
+
+    const dbUser = await db.user.findFirst({
+      where: {
+        id: userId
+      }
+    });
+
+    if (!dbUser) {
+      throw new TRPCError({ code: "UNAUTHORIZED" });
+    }
+
+    const subscriptionPlan = await getUserSubscriptionPlan();
+
+    if (subscriptionPlan.isSubscribed && dbUser.stripeCustomerId) {
+      const stripeSession = await stripe.billingPortal.sessions.create({
+        customer: dbUser.stripeCustomerId,
+        return_url: billingUrl
+      });
+      return { url: stripeSession.url };
+    }
+    const stripeSession = await stripe.checkout.sessions.create({
+      success_url: billingUrl,
+      cancel_url: billingUrl,
+      payment_method_types: ["card", "paypal"],
+      mode: "subscription",
+      billing_address_collection: "auto",
+      line_items: [
+        {
+          price: PLANS.find((plan) => plan.name === "Pro")?.price.priceIds.test,
+          quantity: 1
+        }
+      ],
+      metadata: {
+        userId: userId
+      }
+    });
+    return { url: stripeSession.url };
+  }),
 
   // Private procedure for fetching messages associated with a file.
   // Supports pagination with a cursor and limit on the number of messages retrieved.
