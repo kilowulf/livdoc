@@ -7,7 +7,7 @@ import { ChevronLeft, Loader2, XCircle } from "lucide-react";
 import Link from "next/link";
 import { buttonVariants } from "../ui/button";
 import { ChatContextProvider } from "./ChatContext";
-import { PLANS } from "@/config/stripe";
+// import { PLANS } from "@/config/stripe";
 
 /**
  * `ChatWrapperProps` defines the properties for the `ChatWrapper` component.
@@ -16,7 +16,6 @@ import { PLANS } from "@/config/stripe";
  */
 interface ChatWrapperProps {
   fileId: string;
-  isSubscribed: boolean;
 }
 
 /**
@@ -24,7 +23,7 @@ interface ChatWrapperProps {
  * It handles different states like loading, processing, or failure depending on the file's status.
  * It provides the chat interface once the file is ready for interaction.
  */
-const ChatWrapper = ({ fileId, isSubscribed }: ChatWrapperProps) => {
+const ChatWrapper = ({ fileId }: ChatWrapperProps) => {
   // Fetch the file upload status using TRPC's `useQuery` hook, which periodically refetches the status until it is "SUCCESS" or "FAILED".
   const { data, isLoading } = trpc.getFileUploadStatus.useQuery(
     {
@@ -88,7 +87,7 @@ const ChatWrapper = ({ fileId, isSubscribed }: ChatWrapperProps) => {
             <h3 className="font-semibold text-xl">Too many pages in PDF</h3>
             <p className="text-zinc-500 text-sm">
               {/* Display plan details based on the subscription status */}
-              Your{" "}
+              {/* Your{" "}
               <span className="font-medium">
                 {isSubscribed ? "Pro" : "Free"}
               </span>{" "}
@@ -96,7 +95,7 @@ const ChatWrapper = ({ fileId, isSubscribed }: ChatWrapperProps) => {
               {isSubscribed
                 ? PLANS.find((p) => p.name === "Pro")?.pagesPerPdf
                 : PLANS.find((p) => p.name === "Free")?.pagesPerPdf}{" "}
-              pages per PDF.
+              pages per PDF. */}
             </p>
             {/* Link to navigate back to the dashboard */}
             <Link
@@ -121,7 +120,7 @@ const ChatWrapper = ({ fileId, isSubscribed }: ChatWrapperProps) => {
   return (
     // Wrap the chat components in `ChatContextProvider` to manage the chat state for the file.
     <ChatContextProvider fileId={fileId}>
-      <div className="relative min-h-full bg-zinc-50 flex divide-y divide-zinc-200 flex-col justify-between gap-2">
+      <div className="relative min-h-full bg-zinc-200 flex divide-y divide-zinc-300 flex-col justify-between gap-2">
         {/* Message list and chat input are rendered once the file is ready */}
         <div className="flex-1 justify-between flex flex-col mb-28">
           {/* Render the chat messages */}

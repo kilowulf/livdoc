@@ -52,7 +52,7 @@ const Message = forwardRef<HTMLDivElement, MessageProps>(
 
         {/* Message Bubble */}
         <div
-          className={cn("flex flex-col space-y-2 text-base max-w-md mx-2", {
+          className={cn("flex flex-col space-y-2 text-base max-w-md mx-1", {
             "order-1 items-end": message.isUserMessage, // Align user message bubble to the right
             "order-2 items-start": !message.isUserMessage // Align other person's message bubble to the left
           })}

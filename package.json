@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ai-sdk/openai": "^0.0.64",
     "@hookform/resolvers": "^3.9.0",
     "@kinde-oss/kinde-auth-nextjs": "^2.3.8",
     "@langchain/community": "^0.3.4",
@@ -33,7 +34,7 @@
     "@trpc/react-query": "^11.0.0-rc.528",
     "@trpc/server": "^11.0.0-rc.528",
     "@uploadthing/react": "^7.0.2",
-    "ai": "^3.4.7",
+    "ai": "^2.2.13",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",

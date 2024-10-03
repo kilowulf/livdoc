@@ -10,13 +10,11 @@ import { Button } from "./ui/button";
 import { useState } from "react";
 import { getUserSubscriptionPlan } from "@/lib/stripe";
 
-//timestamp: 4:38:26
-
 interface DashboardPageProps {
   subscriptionPlan: Awaited<ReturnType<typeof getUserSubscriptionPlan>>;
 }
 
-const Dashboard = ({ subscriptionPlan }: DashboardPageProps) => {
+const Dashboard = () => {
   const [currentlyDeletingFile, setCurrentlyDeletingFile] = useState<
     string | null
   >(null);
@@ -39,8 +37,10 @@ const Dashboard = ({ subscriptionPlan }: DashboardPageProps) => {
 
   return (
     <main className="mx-auto max-w-7xl md:p-10">
-      <div className="mt-8 flex flex-col items-start justify-between gap-4 border-b border-gray-200 pb-5 sm:flex-row sm:items-center sm:gap-0">
-        <h1 className="mb-3 font-bold text-5xl text-gray-100">My Documents</h1>
+      <div className="mt-8 flex flex-col items-start justify-between gap-4 border-b border-gray-500 pb-5 sm:flex-row sm:items-center sm:gap-0">
+        <h1 className="mb-3 font-bold text-5xl text-gray-100">
+          My <span className="text-purple-500">Documents</span>
+        </h1>
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
@@ -59,7 +59,7 @@ const Dashboard = ({ subscriptionPlan }: DashboardPageProps) => {
 
       {/* display all user files */}
       {files && files?.length !== 0 ? (
-        <ul className="mt-8 grid grid-cols-1 gap-6 divide-y divide-zinc-100 md:grid-cols-2 lg:grid-cols-3">
+        <ul className="mt-8 grid grid-cols-1 gap-6 divide-zinc-100 md:grid-cols-2 lg:grid-cols-3">
           {files
             .sort(
               (a, b) =>

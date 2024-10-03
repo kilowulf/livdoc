@@ -27,6 +27,33 @@ import {
 } from "./ui/dropdown-menu";
 import SimpleBar from "simplebar-react";
 import PdfFullscreen from "./PdfFullscreen";
+import * as pdfjsLib from "pdfjs-dist";
+
+// Adding Promise type safety declarations
+declare global {
+  interface PromiseConstructor {
+    withResolvers<T = unknown>(): {
+      promise: Promise<T>;
+      resolve: (value: T | PromiseLike<T>) => void;
+      reject: (reason?: any) => void;
+    };
+  }
+}
+
+// Polyfill for Promise.withResolvers
+if (typeof Promise.withResolvers === "undefined") {
+  (Promise as any).withResolvers = function () {
+    let resolve: (value: unknown) => void;
+    let reject: (reason?: any) => void;
+    const promise = new Promise((res, rej) => {
+      resolve = res;
+      reject = rej;
+    });
+    return { promise, resolve: resolve!, reject: reject! };
+  };
+}
+
+// pdfjsLib.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjsLib.version}/legacy/build/pdf.worker.min.mjs`;
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdfjs-dist/build/pdf.worker.min.mjs",
