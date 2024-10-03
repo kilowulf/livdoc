@@ -27,7 +27,7 @@ import {
 } from "./ui/dropdown-menu";
 import SimpleBar from "simplebar-react";
 import PdfFullscreen from "./PdfFullscreen";
-import * as pdfjsLib from "pdfjs-dist";
+
 
 // Adding Promise type safety declarations
 declare global {

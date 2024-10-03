@@ -10,9 +10,9 @@ import { Button } from "./ui/button";
 import { useState } from "react";
 import { getUserSubscriptionPlan } from "@/lib/stripe";
 
-interface DashboardPageProps {
-  subscriptionPlan: Awaited<ReturnType<typeof getUserSubscriptionPlan>>;
-}
+// interface DashboardPageProps {
+//   subscriptionPlan: Awaited<ReturnType<typeof getUserSubscriptionPlan>>;
+// }
 
 const Dashboard = () => {
   const [currentlyDeletingFile, setCurrentlyDeletingFile] = useState<
