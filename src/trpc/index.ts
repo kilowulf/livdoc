@@ -190,13 +190,10 @@ export const appRouter = router({
         where: {
           id: input.fileId,
           userId: ctx.userId
-        },
-        select: {
-          uploadStatus: true
         }
       });
       if (!file) return { status: "PENDING" as const }; // Return 'PENDING' if the file is not found
-      return { status: file?.uploadStatus || ("PENDING" as const) }; // Return the file's upload status
+      return { status: file.uploadStatus }; // Return the file's upload status
     }),
 
   // Private procedure for retrieving a file based on its key.

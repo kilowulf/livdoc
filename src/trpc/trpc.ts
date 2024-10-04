@@ -14,7 +14,7 @@ const middleware = t.middleware;
 const isAuth = middleware(async (opts) => {
   // Retrieve the current authenticated user session using Kinde authentication.
   const { getUser } = getKindeServerSession();
-  const user = await getUser();
+  const user = getUser();
 
   // If the user is not authenticated or doesn't have an ID, throw an "UNAUTHORIZED" error.
   if (!user || !user.id) {

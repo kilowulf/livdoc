@@ -6,13 +6,16 @@ import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { OpenAIEmbeddings } from "@langchain/openai";
 import { PineconeStore } from "@langchain/pinecone";
 import { NextRequest } from "next/server";
+
 import { OpenAIStream, StreamingTextResponse } from "ai";
 
 export const POST = async (req: NextRequest) => {
+  // endpoint for asking a question to a pdf file
+
   const body = await req.json();
 
   const { getUser } = getKindeServerSession();
-  const user = await getUser();
+  const user = getUser();
 
   const { id: userId } = user;
 
@@ -38,7 +41,7 @@ export const POST = async (req: NextRequest) => {
     }
   });
 
-  // Vectorize message
+  // 1: vectorize message
   const embeddings = new OpenAIEmbeddings({
     openAIApiKey: process.env.OPENAI_API_KEY
   });
@@ -52,7 +55,7 @@ export const POST = async (req: NextRequest) => {
 
   const results = await vectorStore.similaritySearch(message, 4);
 
-  const prevMessage = await db.message.findMany({
+  const prevMessages = await db.message.findMany({
     where: {
       fileId
     },
@@ -62,8 +65,7 @@ export const POST = async (req: NextRequest) => {
     take: 6
   });
 
-  // Prep data to transmit message to openai
-  const formattedPrevMessages = prevMessage.map((msg) => ({
+  const formattedPrevMessages = prevMessages.map((msg) => ({
     role: msg.isUserMessage ? ("user" as const) : ("assistant" as const),
     content: msg.text
   }));
@@ -101,16 +103,17 @@ export const POST = async (req: NextRequest) => {
   });
 
   const stream = OpenAIStream(response, {
-    async onCompletion(completion: any) {
+    async onCompletion(completion) {
       await db.message.create({
         data: {
           text: completion,
           isUserMessage: false,
-          userId,
-          fileId
+          fileId,
+          userId
         }
       });
     }
   });
+
   return new StreamingTextResponse(stream);
 };

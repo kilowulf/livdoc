@@ -1,9 +1,7 @@
 import { db } from "@/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
-
 import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
-
 import { OpenAIEmbeddings } from "@langchain/openai";
 import { PineconeStore } from "@langchain/pinecone";
 import { pineconeClient } from "@/lib/pinecone";
@@ -52,21 +50,21 @@ const onUploadComplete = async ({
     const { subscriptionPlan } = metadata;
     const { isSubscribed } = subscriptionPlan;
 
-    const isProExceeded =
-      pagesAmt > PLANS.find((plan) => plan.name === "Pro")!.pagesPerPdf;
-    const isFreeExceeded =
-      pagesAmt > PLANS.find((plan) => plan.name === "Free")!.pagesPerPdf;
+    // const isProExceeded =
+    //   pagesAmt > PLANS.find((plan) => plan.name === "Pro")!.pagesPerPdf;
+    // const isFreeExceeded =
+    //   pagesAmt > PLANS.find((plan) => plan.name === "Free")!.pagesPerPdf;
 
-    if ((isSubscribed && isProExceeded) || (!isSubscribed && isFreeExceeded)) {
-      await db.file.update({
-        data: {
-          uploadStatus: "FAILED"
-        },
-        where: {
-          id: createdFile.id
-        }
-      });
-    }
+    // if ((isSubscribed && isProExceeded) || (!isSubscribed && isFreeExceeded)) {
+    //   await db.file.update({
+    //     data: {
+    //       uploadStatus: "FAILED"
+    //     },
+    //     where: {
+    //       id: createdFile.id
+    //     }
+    //   });
+    // }
 
     // vectorize and index document
     const index = pineconeClient.Index("livdoc");

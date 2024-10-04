@@ -18,7 +18,8 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "border border-transparent text-black hover:border-black",
         link: "text-primary underline-offset-4 hover:underline",
-        gradient: "bg-gradient-to-r from-indigo-600 to-pink-400 text-white"
+        gradient: "bg-gradient-to-r from-indigo-600 to-pink-400 text-white",
+        dashTrash: "bg-purple-600 hover:bg-purple-700"
       },
       size: {
         default: "h-10 px-4 py-2",

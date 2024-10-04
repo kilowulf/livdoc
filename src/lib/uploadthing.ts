@@ -1,7 +1,7 @@
 // Import `generateReactHelpers` from the "@uploadthing/react" package.
 // This function is used to generate React-specific helpers for handling file uploads,
 // making the integration of file uploads easier in React components.
-import { generateReactHelpers } from "@uploadthing/react";
+import { generateReactHelpers } from "@uploadthing/react/hooks";
 
 // Import the type `OurFileRouter` which defines the routes for file uploads in the project.
 // This type will be passed to `generateReactHelpers` to ensure that the generated helpers
