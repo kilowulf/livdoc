@@ -36,19 +36,18 @@ const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
    * - On success, the user is redirected to the Stripe billing page via the returned URL.
    * - If there is an issue, a toast notification is displayed.
    */
-  const { mutate: createStripeSession, isLoading } =
-    trpc.createStripeSession.useMutation({
-      onSuccess: ({ url }) => {
-        if (url) window.location.href = url;
-        if (!url) {
-          toast({
-            title: "There was a problem...",
-            description: "Please try again in a moment",
-            variant: "destructive"
-          });
-        }
+  const { mutate: createStripeSession } = trpc.createStripeSession.useMutation({
+    onSuccess: ({ url }) => {
+      if (url) window.location.href = url;
+      if (!url) {
+        toast({
+          title: "There was a problem...",
+          description: "Please try again in a moment",
+          variant: "destructive"
+        });
       }
-    });
+    }
+  });
 
   return (
     <MaxWidthWrapper className="max-w-5xl">
@@ -71,12 +70,12 @@ const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
 
           <CardFooter className="flex flex-col items-start space-y-2 md:flex-row md:justify-between md:space-x-0 ">
             <Button type="submit" variant="gradient">
-              {isLoading ? (
+              {/* {isLoading ? (
                 <Loader2 className="mr-4 h-4 w-4 animate-spin" /> // Loading spinner when the Stripe session is being created
               ) : null}
               {subscriptionPlan.isSubscribed
                 ? "Manage Subscription" // Button text for managing the existing subscription
-                : "Upgrade to PRO"}
+                : "Upgrade to PRO"} */}
             </Button>
 
             {subscriptionPlan.isSubscribed ? (
