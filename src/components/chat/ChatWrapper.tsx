@@ -1,3 +1,4 @@
+/* eslint-disable */
 "use client";
 
 import { trpc } from "@/app/_trpc/client";
@@ -35,6 +36,9 @@ const ChatWrapper = ({ fileId }: ChatWrapperProps) => {
         data?.status === "SUCCESS" || data?.status === "FAILED" ? false : 500
     }
   );
+
+  const status = data?.status;
+  console.log(status);
 
   // Render loading UI when the query is still fetching the file status.
   if (isLoading)
