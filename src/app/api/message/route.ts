@@ -101,7 +101,7 @@ export const POST = async (req: NextRequest) => {
   });
 
   const stream = OpenAIStream(response, {
-    async onCompletion(completion) {
+    async onCompletion(completion: any) {
       await db.message.create({
         data: {
           text: completion,
