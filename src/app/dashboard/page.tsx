@@ -2,24 +2,34 @@ import Dashboard from "@/components/Dashboard";
 import { db } from "@/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { redirect } from "next/navigation";
-// import { getUserSubscriptionPlan } from "@/lib/stripe";
 
-export default async function Page() {
+export default async function DashboardPage() {
   const { getUser } = getKindeServerSession();
-  const user = getUser();
 
-  // check if user is authenticated
-  if (!user || !user.id) redirect("/auth-callback?origin=dashboard");
+  // Await the user info if `getUser` is asynchronous
+  const user = await getUser();
 
-  // check for user in db
-  const dbUser = await db.user.findFirst({
-    where: {
-      id: user.id
+  // Check if user is authenticated
+  if (!user || !user.id) {
+    redirect("/auth-callback?origin=dashboard");
+  }
+
+  try {
+    // Check for user in the database
+    const dbUser = await db.user.findFirst({
+      where: {
+        id: user.id
+      }
+    });
+
+    if (!dbUser) {
+      redirect("/auth-callback?origin=dashboard");
     }
-  });
-
-  if (!dbUser) redirect("/auth-callback?origin=dashboard");
-  // const subscriptionPlan = await getUserSubscriptionPlan();
+  } catch (error) {
+    console.error("Database error:", error);
+    redirect("/auth-callback?origin=dashboard");
+    return;
+  }
 
   return <Dashboard />;
 }
