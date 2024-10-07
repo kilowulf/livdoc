@@ -66,10 +66,13 @@
   }
 }
 
+html {
+  font-family: "Arial", Arial, sans-serif;
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: sans-serif;
 }
 
 @layer utilities {

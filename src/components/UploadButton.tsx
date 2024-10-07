@@ -159,7 +159,7 @@ const UploadButton = () => {
       }}
     >
       <DialogTrigger onClick={() => setIsOpen(true)} asChild>
-        <Button className="bg-purple-500 font-semibold  bg-opacity-75">
+        <Button className="bg-blue-500 font-semibold  bg-opacity-75">
           Upload PDF
         </Button>
       </DialogTrigger>

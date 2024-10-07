@@ -111,11 +111,17 @@ const Page = () => {
               className="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] opacity-30 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]"
             />
           </div>
-          <h1 className="text-6xl font-bold sm:text-7xl">Pricing</h1>
+          <h1 className="text-6xl font-bold sm:text-7xl whitespace-nowrap">
+            Get<span className="text-blue-400"> more </span> out
+          </h1>
+          <h2 className="text-3xl font-bold sm:text-5xl">
+            of your
+            <span className="text-blue-500"> documents!</span>
+          </h2>
           <p className="mt-5 text-zinc-400 sm:text-lg">
             Whether you&apos;re just trying out our service for the first time
-            or looking for a service to meet a greater workload, we&apos;ve got
-            you covered.
+            or looking for a service to meet a professional workload, we&apos;ve
+            got you covered.
           </p>
         </div>
 

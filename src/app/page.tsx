@@ -9,17 +9,19 @@ import React from "react";
 export default function Home() {
   return (
     <>
-      <MaxWidthWrapper className="mb-12 nt-28 sm:mt-40 flex flex-col items-center justify-center text-center">
+      <MaxWidthWrapper className="mb-12 mt-28 sm:mt-40 flex flex-col items-center justify-center text-center">
         <div className="mx-auto mb-4 flex max-w-fit items-center justify-center space-x-2 overflow-hidden rounded-full border border-gray-200 bg-white px-7 py-2 shadow-md backdrop-blur transition-all hover:border-gray-300 hover:bg-white/50">
           <p className="text-sm font-semibold text-gray-700">LivDoc is live</p>
         </div>
         <h1 className="max-w-4xl text-5xl font-bold md:text-6xl lg:text-7xl">
-          Query your <span className="text-blue-500">documents</span> with the
-          power of <span className="text-blue-400">A.I.</span>
+          Query your <span className="text-blue-500">documents</span>
         </h1>
-        <p className="mt-5 max-w-prose text-zinc-500 sm:text-lg">
-          LivDoc brings your documents to life.{" "}
-        </p>
+        <h2 className="max-w-4xl text-3xl font-bold md:text-4xl lg:text-5xl">
+          with the power of <span className="text-blue-400">A.I.</span>
+        </h2>
+        <i className="mt-5 max-w-prose text-zinc-400 sm:text-lg">
+          "LivDoc brings your documents to life!"{" "}
+        </i>
         <Link
           className={buttonVariants({ size: "lg", className: "mt-5" })}
           href="/dashboard"
