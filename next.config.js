@@ -23,6 +23,15 @@
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https", // Protocol used by the remote image
+        hostname: "gravatar.com", // Hostname of the remote image source
+        pathname: "/avatar/**" // Match any path under /avatar
+      }
+    ]
+  },
   // async redirects() {
   //   return [
   //     {
