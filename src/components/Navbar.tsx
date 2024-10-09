@@ -11,6 +11,7 @@ import {
 import { ArrowRight } from "lucide-react";
 import React from "react";
 import UserAccountNav from "./UserAccountNav";
+import MobileNav from "./MobileNav";
 
 export default function Navbar() {
   // return logged-in user
@@ -29,7 +30,11 @@ export default function Navbar() {
               className="flex aspect-square h-[40px] w-[160px] rounded-full object-cover pl-5"
             />
           </Link>
-          {/*todo: add mobile navbar */}
+
+          {/*Mobile navbar */}
+          <MobileNav isAuth={!!user}/>
+
+          {/*Desktop navbar */}
           <div className="hidden items-center space-x-4 pr-3 sm:flex">
             {!user ? (
               <>

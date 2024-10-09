@@ -16,8 +16,13 @@ import Link from "next/link";
 import { format } from "date-fns";
 import { Button } from "./ui/button";
 import { useState } from "react";
+import { getUserSubscriptionPlan } from "@/lib/stripe";
 
-const Dashboard = () => {
+interface PageProps {
+  subscriptionPlan: Awaited<ReturnType<typeof getUserSubscriptionPlan>>;
+}
+
+const Dashboard = ({ subscriptionPlan }: PageProps) => {
   // State to manage currently deleting file's ID, set to null initially
   const [currentlyDeletingFile, setCurrentlyDeletingFile] = useState<
     string | null
@@ -68,7 +73,7 @@ const Dashboard = () => {
         </div>
 
         {/* Button to Upload a New File */}
-        <UploadButton />
+        <UploadButton isSubscribed={subscriptionPlan.isSubscribed} />
       </div>
 
       {/* Display of Files, Loading State, or Empty State Message */}

@@ -35,6 +35,15 @@ const onUploadComplete = async ({
   metadata: Awaited<ReturnType<typeof middleware>>;
   file: { key: string; name: string; url: string };
 }) => {
+  // Check if file exists
+  const isFileExist = await db.file.findFirst({
+    where: {
+      key: file.key
+    }
+  });
+
+  if (isFileExist) return;
+
   // Store file metadata in the database and set initial upload status to "PROCESSING"
   const createdFile = await db.file.create({
     data: {
@@ -60,22 +69,22 @@ const onUploadComplete = async ({
     const { subscriptionPlan } = metadata;
     const { isSubscribed } = subscriptionPlan;
 
-    // TODO: Check if the uploaded document exceeds page limits based on subscription plan
-    // const isProExceeded =
-    //   pagesAmt > PLANS.find((plan) => plan.name === "Pro")!.pagesPerPdf;
-    // const isFreeExceeded =
-    //   pagesAmt > PLANS.find((plan) => plan.name === "Free")!.pagesPerPdf;
-    //
-    // if ((isSubscribed && isProExceeded) || (!isSubscribed && isFreeExceeded)) {
-    //   await db.file.update({
-    //     data: {
-    //       uploadStatus: "FAILED"
-    //     },
-    //     where: {
-    //       id: createdFile.id
-    //     }
-    //   });
-    // }
+    // Check if the uploaded document exceeds page limits based on subscription plan
+    const isProExceeded =
+      pagesAmt > PLANS.find((plan) => plan.name === "Pro")!.pagesPerPdf;
+    const isFreeExceeded =
+      pagesAmt > PLANS.find((plan) => plan.name === "Free")!.pagesPerPdf;
+
+    if ((isSubscribed && isProExceeded) || (!isSubscribed && isFreeExceeded)) {
+      await db.file.update({
+        data: {
+          uploadStatus: "FAILED"
+        },
+        where: {
+          id: createdFile.id
+        }
+      });
+    }
 
     // Vectorize document pages using OpenAI embeddings and index them using Pinecone
     const index = pineconeClient.Index("livdoc");
@@ -107,14 +116,15 @@ const onUploadComplete = async ({
         id: createdFile.id
       }
     });
-    console.log(err);
   }
 };
 
 // Define the file router for handling different file types (e.g., PDF)
 export const ourFileRouter = {
-  // File handler for uploading PDF files, with middleware for authentication and upload completion handler
-  pdfUploader: f({ pdf: { maxFileSize: "4MB" } })
+  freePlanUploader: f({ pdf: { maxFileSize: "4MB" } })
+    .middleware(middleware)
+    .onUploadComplete(onUploadComplete),
+  proPlanUploader: f({ pdf: { maxFileSize: "16MB" } })
     .middleware(middleware)
     .onUploadComplete(onUploadComplete)
 } satisfies FileRouter;
