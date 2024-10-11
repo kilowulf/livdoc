@@ -79,6 +79,7 @@ export async function getUserSubscriptionPlan() {
     : null;
 
   let isCanceled = false;
+
   /**
    * If the user is subscribed and has a valid Stripe subscription ID, check whether the subscription is set to be canceled.
    */
@@ -92,6 +93,7 @@ export async function getUserSubscriptionPlan() {
   /**
    * Return the subscription details including the plan, Stripe IDs, and subscription status.
    */
+
   return {
     ...plan, // The user's current plan
     stripeSubscriptionId: dbUser.stripeSubscriptionId,

@@ -36,6 +36,7 @@ const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
    * - On success, the user is redirected to the Stripe billing page via the returned URL.
    * - If there is an issue, a toast notification is displayed.
    */
+
   const { mutate: createStripeSession, isLoading } =
     trpc.createStripeSession.useMutation({
       onSuccess: ({ url }) => {
@@ -95,7 +96,7 @@ const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
             {subscriptionPlan.isSubscribed ? (
               <p className="rounded-full text-xs font-medium ">
                 {subscriptionPlan.isCanceled
-                  ? "Your plan will be canceled on " // If the subscription is canceled, display the cancellation date
+                  ? "Your plan will end on " // If the subscription is canceled, display the cancellation date
                   : "Your plan renews on"}
                 {/* If the subscription is active, display the renewal date */}
                 {format(subscriptionPlan.stripeCurrentPeriodEnd!, "dd.MM.yyyy")}

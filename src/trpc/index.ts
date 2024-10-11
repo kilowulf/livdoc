@@ -77,6 +77,7 @@ export const appRouter = router({
 
     const dbUser = await db.user.findFirst({ where: { id: userId } });
     if (!dbUser) throw new TRPCError({ code: "UNAUTHORIZED" });
+    console.log(dbUser);
 
     const subscriptionPlan = await getUserSubscriptionPlan();
     const billingUrl = absoluteUrl(`/dashboard/billing`);
@@ -103,6 +104,8 @@ export const appRouter = router({
       ],
       metadata: { userId: userId }
     });
+    
+
     return { url: stripeSession.url };
   }),
 

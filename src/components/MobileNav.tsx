@@ -11,6 +11,7 @@ import { ArrowRight, Menu } from "lucide-react"; // Icons for navigation
 import Link from "next/link";
 import { usePathname } from "next/navigation"; // Hook to access the current route path
 import { useEffect, useState } from "react";
+import UserAccountNav from "./UserAccountNav";
 
 const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
   const [isOpen, setOpen] = useState<boolean>(false); // State to manage menu visibility
@@ -23,7 +24,7 @@ const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
   // Close the menu automatically when the path changes
   useEffect(() => {
     if (isOpen) toggleOpen();
-  }, [pathname, isOpen]);
+  }, [pathname]);
 
   // Close the menu when navigating to the current route
   const closeOnCurrent = (href: string) => {
@@ -48,6 +49,7 @@ const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
             {!isAuth ? (
               <>
                 <li>
+                  {/*account image if loggged */}
                   <Link
                     onClick={() => closeOnCurrent("/sign-up")}
                     className="flex items-center w-full font-semibold text-blue-600 hover:text-white hover:bg-blue-400 px-4 py-2 rounded"

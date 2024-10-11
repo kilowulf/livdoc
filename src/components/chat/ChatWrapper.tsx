@@ -124,7 +124,7 @@ const ChatWrapper = ({ fileId }: ChatWrapperProps) => {
   return (
     // Wrap the chat components in `ChatContextProvider` to manage the chat state for the file.
     <ChatContextProvider fileId={fileId}>
-      <div className="relative min-h-full bg-zinc-200 flex divide-y divide-zinc-300 flex-col justify-between gap-2">
+      <div className="relative min-h-full bg-zinc-300 flex divide-y divide-zinc-300 flex-col justify-between gap-2">
         {/* Message list and chat input are rendered once the file is ready */}
         <div className="flex-1 justify-between flex flex-col mb-28">
           {/* Render the chat messages */}

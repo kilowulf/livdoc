@@ -24,10 +24,10 @@ export default function Home() {
         </i>
         <Link
           className={buttonVariants({ size: "lg", className: "mt-5" })}
-          href="/dashboard"
+          href={"/pricing"}
           target="_blank"
         >
-          Gets Started <ArrowRight className="ml-2 h-5 w-5" />
+          Get Started <ArrowRight className="ml-2 h-5 w-5" />
         </Link>
       </MaxWidthWrapper>
       {/* value proposition section */}

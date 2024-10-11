@@ -29,6 +29,7 @@ export default async function DashboardPage() {
 
     // get subscription state of user
     const subscriptionPlan = await getUserSubscriptionPlan();
+    console.log(subscriptionPlan);
 
     return <Dashboard subscriptionPlan={subscriptionPlan} />;
   } catch (error) {

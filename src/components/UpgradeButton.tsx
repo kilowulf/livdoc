@@ -19,6 +19,7 @@ const UpgradeButton = () => {
    */
   const { mutate: createStripeSession } = trpc.createStripeSession.useMutation({
     onSuccess: ({ url }) => {
+      console.log(url);
       // Redirect the user to the Stripe checkout session or billing page
       window.location.href = url ?? "/dashboard/billing";
     }

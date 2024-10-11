@@ -46,7 +46,7 @@ const Message = forwardRef<HTMLDivElement, MessageProps>(
           {message.isUserMessage ? (
             <Icons.user className="fill-zinc-200 text-zinc-200 h-3/4 w-3/4" />
           ) : (
-            <Icons.logo className="fill-zinc-300 h-3/4 w-3/4" />
+            <Icons.logo className="fill-zinc-200 h-8/9 w-8/9 rounded-sm" />
           )}
         </div>
 
@@ -61,7 +61,7 @@ const Message = forwardRef<HTMLDivElement, MessageProps>(
           <div
             className={cn("px-4 py-2 rounded-lg inline-block", {
               "bg-blue-600 text-white": message.isUserMessage, // User's message has blue background and white text
-              "bg-gray-200 text-gray-900": !message.isUserMessage, // Other person's message has gray background and dark text
+              "bg-zinc-100 text-gray-900": !message.isUserMessage, // Other person's message has gray background and dark text
               "rounded-br-none":
                 !isNextMessageSamePerson && message.isUserMessage, // Remove bottom-right corner if it's the last message from the user
               "rounded-bl-none":

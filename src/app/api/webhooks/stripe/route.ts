@@ -86,6 +86,7 @@ export async function POST(request: Request) {
     });
   }
 
+  console.log(event.type);
   // Return a successful response to Stripe to acknowledge the event
   return new Response(null, { status: 200 });
 }

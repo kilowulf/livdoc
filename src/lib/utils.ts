@@ -62,9 +62,16 @@ export function constructMetadata({
     },
     icons,
     metadataBase: new URL("https://livdoc.vercel.app"), // Base URL for metadata links
-    themeColor: "#FFF", // Theme color for browser UI customization
+    // themeColor: "#FFF", // Theme color for browser UI customization
     ...(noIndex && {
       robots: { index: false, follow: false } // Optional no-index for search engines
     })
   };
 }
+/**
+ * Viewport configuration for the application.
+ * - Moves the `themeColor` to the `viewport` export as required by Next.js.
+ */
+export const viewport = {
+  themeColor: "#FFF" // Theme color now under viewport configuration
+};

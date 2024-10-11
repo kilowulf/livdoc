@@ -55,7 +55,8 @@ const ChatInput = ({ isDisabled }: ChatInputProps) => {
                   }
                 }}
                 placeholder="Enter your question..." // Placeholder text for the input field
-                className="resize-none pr-12 text-base py-3 scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch" // Custom styling for the textarea
+                className="resize-none pr-12 text-base py-3 scrollbar-thumb-blue scrollbar-thumb-rounded scrollbar-track-blue-lighter scrollbar-w-2 scrolling-touch focus:border-blue-400 focus:bg-blue-50 
+                           focus:outline-none" // Custom styling for the textarea
               />
 
               {/* Button for sending the message */}

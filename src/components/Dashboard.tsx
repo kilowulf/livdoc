@@ -33,6 +33,7 @@ const Dashboard = ({ subscriptionPlan }: PageProps) => {
 
   // Fetch user files data and loading status with TRPC
   const { data: files, isLoading } = trpc.getUserFiles.useQuery();
+  console.log(subscriptionPlan.name);
 
   // Mutation to delete a file, updating file list upon success and managing delete state
   const { mutate: deleteFile } = trpc.deleteFile.useMutation({
