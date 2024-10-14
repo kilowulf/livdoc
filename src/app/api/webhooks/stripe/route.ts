@@ -12,17 +12,9 @@ import type Stripe from "stripe";
 /**
  * Helper function to read the raw request body as a buffer.
  */
-async function buffer(readable: ReadableStream<Uint8Array>) {
-  const reader = readable.getReader();
-  const chunks = [];
-  let done, value;
-
-  while (!done) {
-    ({ done, value } = await reader.read());
-    if (value) chunks.push(value);
-  }
-
-  return Buffer.concat(chunks);
+async function buffer(readable: ReadableStream<Uint8Array>): Promise<Buffer> {
+  const arrayBuffer = await new Response(readable).arrayBuffer();
+  return Buffer.from(arrayBuffer);
 }
 
 export async function POST(request: Request) {
