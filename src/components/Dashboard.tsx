@@ -29,7 +29,7 @@ const Dashboard = ({ subscriptionPlan }: PageProps) => {
   >(null);
 
   // TRPC context for re-fetching data after mutations
-  const utils = trpc.useContext();
+  const utils = trpc.useUtils();
 
   // Fetch user files data and loading status with TRPC
   const { data: files, isLoading } = trpc.getUserFiles.useQuery();
