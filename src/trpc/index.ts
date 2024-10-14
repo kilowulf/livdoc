@@ -104,7 +104,6 @@ export const appRouter = router({
       ],
       metadata: { userId: userId }
     });
-    
 
     return { url: stripeSession.url };
   }),
@@ -161,9 +160,14 @@ export const appRouter = router({
   getFile: privateProcedure
     .input(z.object({ key: z.string() })) // Validate the file key input
     .mutation(async ({ ctx, input }) => {
+      const { userId } = ctx;
       const file = await db.file.findFirst({
-        where: { key: input.key, userId: ctx.userId }
+        where: {
+          key: input.key,
+          userId
+        }
       });
+
       if (!file) throw new TRPCError({ code: "NOT_FOUND" });
       return file; // Return the found file
     })
