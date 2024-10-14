@@ -8,9 +8,27 @@ import type Stripe from "stripe";
  * - This function listens for various Stripe events (such as 'checkout.session.completed' and 'invoice.payment_succeeded').
  * - It updates the database with subscription information when a successful event is received from Stripe.
  */
+
+/**
+ * Helper function to read the raw request body as a buffer.
+ */
+async function buffer(readable: ReadableStream<Uint8Array>) {
+  const reader = readable.getReader();
+  const chunks = [];
+  let done, value;
+
+  while (!done) {
+    ({ done, value } = await reader.read());
+    if (value) chunks.push(value);
+  }
+
+  return Buffer.concat(chunks);
+}
+
 export async function POST(request: Request) {
   // Read the request body as text
-  const body = await request.text();
+  // const body = await request.text();
+  const body = await buffer(request.body as ReadableStream<Uint8Array>);
 
   // Retrieve the Stripe signature from headers, used for webhook verification
   const signature = headers().get("Stripe-Signature") ?? "";
@@ -25,6 +43,7 @@ export async function POST(request: Request) {
       process.env.STRIPE_WEBHOOK_SECRET || "" // Secret to validate the webhook's authenticity
     );
   } catch (err) {
+    console.error(`Webhook signature verification failed.`, err);
     // If the webhook signature is invalid or there is an error, respond with an error
     return new Response(
       `Webhook Error: ${err instanceof Error ? err.message : "Unknown Error"}`,

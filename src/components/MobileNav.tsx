@@ -11,7 +11,6 @@ import { ArrowRight, Menu } from "lucide-react"; // Icons for navigation
 import Link from "next/link";
 import { usePathname } from "next/navigation"; // Hook to access the current route path
 import { useEffect, useState } from "react";
-import UserAccountNav from "./UserAccountNav";
 
 const MobileNav = ({ isAuth }: { isAuth: boolean }) => {
   const [isOpen, setOpen] = useState<boolean>(false); // State to manage menu visibility

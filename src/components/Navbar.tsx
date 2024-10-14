@@ -32,7 +32,7 @@ export default function Navbar() {
           </Link>
 
           {/*Mobile navbar */}
-          <MobileNav isAuth={!!user}/>
+          <MobileNav isAuth={!!user} />
 
           {/*Desktop navbar */}
           <div className="hidden items-center space-x-4 pr-3 sm:flex">
