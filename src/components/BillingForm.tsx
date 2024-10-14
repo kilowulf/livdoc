@@ -78,7 +78,7 @@ const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
           <CardHeader>
             <CardTitle>Subscription Plan</CardTitle>
             <CardDescription>
-              You are currently on the <strong>{subscriptionPlan.name}</strong>
+              You are currently on the <strong>{subscriptionPlan.name} </strong>
               plan.
             </CardDescription>
           </CardHeader>
@@ -97,7 +97,7 @@ const BillingForm = ({ subscriptionPlan }: BillingFormProps) => {
               <p className="rounded-full text-xs font-medium ">
                 {subscriptionPlan.isCanceled
                   ? "Your plan will end on " // If the subscription is canceled, display the cancellation date
-                  : "Your plan renews on"}
+                  : "Your plan renews on "}
                 {/* If the subscription is active, display the renewal date */}
                 {format(subscriptionPlan.stripeCurrentPeriodEnd!, "dd.MM.yyyy")}
                 .
