@@ -35,7 +35,7 @@ export function absoluteUrl(path: string) {
 export function constructMetadata({
   title = "LivDoc - Document Chatbot for Professionals",
   description = "LivDoc is an open-source software to make chatting to your PDF files easy.",
-  image = "/assets/thumbnail.png",
+  image = "/assets/logo_png.png",
   icons = "/favicon.ico",
   noIndex = false
 }: {
